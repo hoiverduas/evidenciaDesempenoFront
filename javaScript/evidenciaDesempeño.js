@@ -1,6 +1,3 @@
-
-
-
 class User {
     constructor(userName, password) {
         this.userName = userName;
@@ -8,7 +5,7 @@ class User {
     }
 }
 
-const adminUser = new User("admin", "12345");
+const adminUser = new User("admin", "1234");
 
 function logIn() {
     let exit = false;
@@ -19,17 +16,44 @@ function logIn() {
         let inputPassword = prompt('Ingrese su contraseña:');
 
         if (inputPassword === adminUser.password && inputUserName === adminUser.userName) {
-            alert("okey");
+            alert("Acceso concedido");
+            exit = true;
+            salesSystem();
         } else {
-            alert("Invalid username or password");
+            alert("Nombre de usuario o contraseña incorrectos");
             cont++;
         }
 
-        if (cont === 3) {
-            alert("Demasiados intentos. Saliendo."); 
-            exit = true; 
+        if (cont === 3 && !exit) {
+            alert("Demasiados intentos. Saliendo.");
+            exit = true;
         }
-    } while (!exit);    
+    } while (!exit);
 }
 
-logIn();
+function salesSystem() {
+    let total = 0;
+    let productsCount = 0;
+    let productsDetails = [];
+
+    while (true) {
+        let productName = prompt('Ingrese el nombre del producto (o ingrese "salir" para terminar):');
+
+        if (productName.toLowerCase() === "salir") {
+            break;
+        }
+
+        let price = parseFloat(prompt('Ingrese el precio del producto:'));
+
+        if (isNaN(price) || price < 0) {
+            alert("Precio inválido. Intente nuevamente.");
+            continue;
+        }
+
+        productsCount++;
+        total += price;
+        productsDetails.push({ name: productName, price: price });
+
+        alert(`Total hasta ahora (sin descuentos ni IVA): $${total.toFixed(2)}\nCantidad de productos ingresados: ${productsCount}`);
+    }
+}
