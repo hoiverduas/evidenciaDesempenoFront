@@ -25,16 +25,16 @@ function logIn() {
         }
 
         if (cont === 3 && !exit) {
-            alert("Demasiados intentos. Saliendo.");
-            exit = true;
+            alert("Demasiados intentos. Saliendo."); 
+            exit = true; 
         }
-    } while (!exit);
+    } while (!exit);    
 }
 
 function salesSystem() {
-    let total = 0;
-    let productsCount = 0;
-    let productsDetails = [];
+    let total = 0; 
+    let productsCount = 0; 
+    let productsDetails = []; 
 
     while (true) {
         let productName = prompt('Ingrese el nombre del producto (o ingrese "salir" para terminar):');
@@ -47,22 +47,23 @@ function salesSystem() {
 
         if (isNaN(price) || price < 0) {
             alert("Precio inválido. Intente nuevamente.");
-            continue;
+            continue; 
         }
 
         productsCount++;
-        total += price;
-        productsDetails.push({ name: productName, price: price });
+        total += price; 
+        productsDetails.push({ name: productName, price: price }); 
 
         alert(`Total hasta ahora (sin descuentos ni IVA): $${total.toFixed(2)}\nCantidad de productos ingresados: ${productsCount}`);
     }
 
-    let { finalTotal, discount10, discount5 } = calculateTotal(total, productsCount);
-
+    let { finalTotal, discount10, discount5, iva } = calculateTotal(total, productsCount);
+    
     alert(`El total final a pagar es: $${finalTotal.toFixed(2)}\n` +
           `Cantidad total de productos ingresados: ${productsCount}\n` +
           `Descuento del 10% aplicado: $${discount10.toFixed(2)}\n` +
-          `Descuento adicional del 5% aplicado: $${discount5.toFixed(2)}`);
+          `Descuento adicional del 5% aplicado: $${discount5.toFixed(2)}\n` +
+          `IVA (19%): $${iva.toFixed(2)}`); 
 
     let detailsMessage = "Detalles de los productos:\n";
     productsDetails.forEach(product => {
@@ -71,3 +72,25 @@ function salesSystem() {
     alert(detailsMessage);
 }
 
+function calculateTotal(total, productsCount) {
+    let discount10 = 0;
+    let discount5 = 0;
+    let iva = 0;
+
+    if (productsCount > 5) {
+        discount10 = total * 0.10; 
+        total -= discount10; 
+    }
+
+    iva = total * 0.19; 
+    total += iva; 
+
+    if (total > 500000) {
+        discount5 = total * 0.05; 
+        total -= discount5; 
+    }
+
+    return { finalTotal: total, discount10, discount5, iva }; 
+}
+
+logIn();
