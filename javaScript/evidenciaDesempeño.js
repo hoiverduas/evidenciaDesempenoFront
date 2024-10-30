@@ -62,6 +62,12 @@ function salesSystem() {
     alert(`El total final a pagar es: $${finalTotal.toFixed(2)}\n` +
           `Cantidad total de productos ingresados: ${productsCount}\n` +
           `Descuento del 10% aplicado: $${discount10.toFixed(2)}\n` +
-          `Descuento adicional del 5% aplicado: $${discount5.toFixed(2)}`); 
+          `Descuento adicional del 5% aplicado: $${discount5.toFixed(2)}`);
+
+    let detailsMessage = "Detalles de los productos:\n";
+    productsDetails.forEach(product => {
+        detailsMessage += `- ${product.name}: $${product.price.toFixed(2)}\n`;
+    });
+    alert(detailsMessage);
 }
 
