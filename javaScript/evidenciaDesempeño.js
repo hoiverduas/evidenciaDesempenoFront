@@ -56,4 +56,12 @@ function salesSystem() {
 
         alert(`Total hasta ahora (sin descuentos ni IVA): $${total.toFixed(2)}\nCantidad de productos ingresados: ${productsCount}`);
     }
+
+    let { finalTotal, discount10, discount5 } = calculateTotal(total, productsCount);
+
+    alert(`El total final a pagar es: $${finalTotal.toFixed(2)}\n` +
+          `Cantidad total de productos ingresados: ${productsCount}\n` +
+          `Descuento del 10% aplicado: $${discount10.toFixed(2)}\n` +
+          `Descuento adicional del 5% aplicado: $${discount5.toFixed(2)}`); 
 }
+
